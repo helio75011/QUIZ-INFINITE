@@ -58,9 +58,14 @@ const HomeScreen = ({ navigation }) => {
         <Picker
           selectedValue={selectedCategory}
           onValueChange={(itemValue, itemIndex) => {
-            setSelectedCategory(itemValue);
-            setShowCategoryPicker(false); // Ferme le Picker après la sélection
-          }}
+            if (itemValue === "") {
+              navigation.navigate('InfiniteQuizScreen'); // Navigue directement avant de fermer le Picker
+              setShowCategoryPicker(false);
+            } else {
+              setSelectedCategory(itemValue);
+              setShowCategoryPicker(false); // Ferme le Picker après la sélection
+            }
+          }}          
           style={styles.picker}>
           {categories.map((category, index) => (
             <Picker.Item key={index} label={category.label} value={category.value} />
